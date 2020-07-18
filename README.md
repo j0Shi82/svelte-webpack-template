@@ -1,6 +1,13 @@
 # svelte-webpack-template
 My current and ever-evolving standard template when starting svelte apps. Readme is still a work in progress...
 
+## Start project using this template
+
+```
+npm install -g degit
+npx degit j0Shi82/svelte-webpack-template svelte-app 
+```
+
 ## Current Features
 
 - Babel: Uses `@babel/preset-modules`
