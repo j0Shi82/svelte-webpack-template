@@ -10,7 +10,7 @@ npx degit j0Shi82/svelte-webpack-template svelte-app
 
 ## Current Features
 
-- Babel: Uses `@babel/preset-modules`
+- Babel: Build two bundles based on `@babel/preset-modules` for modern browser and `@babel/preset-env` for legacy browsers leveraging the module/nomodule pattern
 - ESLint: extends `airbnb-base`
 - Jest: Put tests in `__tests__` folders
 - PostCSS:

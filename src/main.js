@@ -1,3 +1,4 @@
+// import 'intersection-observer'; uncomment if needed
 import App from './App.svelte';
 
 const app = new App({

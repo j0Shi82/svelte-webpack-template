@@ -2,15 +2,17 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const Visualizer = require('webpack-visualizer-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
-
 const path = require('path');
-
 const sveltePreprocess = require('svelte-preprocess');
+const WebpackModuleNomodulePlugin = require('webpack-module-nomodule-plugin');
+
+const sveltePath = path.resolve('node_modules', 'svelte');
+const babelConfig = require('./babel.config');
 
 const mode = process.env.NODE_ENV || 'development';
 const prod = mode === 'production';
 
-module.exports = {
+const makeConfig = (target) => ({
   entry: {
     bundle: ['./src/main.js'],
   },
@@ -20,7 +22,7 @@ module.exports = {
   },
   resolve: {
     alias: {
-      svelte: path.resolve('node_modules', 'svelte'),
+      svelte: sveltePath,
     },
     extensions: ['.mjs', '.js', '.svelte'],
     mainFields: ['svelte', 'browser', 'module', 'main'],
@@ -28,16 +30,19 @@ module.exports = {
   },
   output: {
     path: `${__dirname}/dist`,
-    filename: '[name].[contenthash].js',
-    chunkFilename: '[name].[chunkhash].[contenthash].js',
+    filename: `[name].[contenthash].${target}.js`,
+    chunkFilename: `[name].[chunkhash].[contenthash].${target}.js`,
   },
   module: {
     rules: [
       {
-        test: /\.(js|mjs|svelte)$/,
-        exclude: /node_modules\/(?!svelte)/,
+        test: /\.(?:svelte|m?js)$/,
+        include: [path.resolve(__dirname, 'src'), sveltePath],
         use: {
           loader: 'babel-loader',
+          options: {
+            ...babelConfig.env[target],
+          },
         },
       },
       {
@@ -98,6 +103,7 @@ module.exports = {
       title: 'My Page Title',
       template: './src/index.template.html',
     }),
+    prod ? new WebpackModuleNomodulePlugin(target, 'minimal') : () => {},
     new CopyPlugin({
       patterns: [
         { from: path.resolve(__dirname, 'public'), to: path.resolve(__dirname, 'dist') },
@@ -106,4 +112,6 @@ module.exports = {
   ],
   devtool: prod ? false : 'source-map',
   target: 'web',
-};
+});
+
+module.exports = prod ? [makeConfig('modern'), makeConfig('legacy')] : makeConfig('legacy');
