@@ -66,7 +66,13 @@
       "yarn lint"
     ]
   },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "ios >= 9",
+    "not dead",
+    "ie >= 11"
+  ],
   "resolve": {
-    "core-js": "^3.6.5"
   }
 }
