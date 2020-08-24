@@ -24,6 +24,7 @@ const config = {
         [
           '@babel/preset-env', {
             corejs: { version: 3, proposals: true },
+            targets: 'cover 99.5%, not dead',
             useBuiltIns: 'usage',
           },
         ],

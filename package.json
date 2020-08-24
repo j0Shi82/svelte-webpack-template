@@ -9,6 +9,7 @@
     "babel-eslint": "^10.1.0",
     "babel-jest": "^26.3.0",
     "babel-loader": "^8.1.0",
+    "browserslist-useragent-regexp": "^2.1.0",
     "copy-webpack-plugin": "^6.0.3",
     "core-js": "^3.6.5",
     "cross-env": "^7.0.2",
@@ -46,6 +47,7 @@
   "dependencies": {
     "@babel/runtime-corejs3": "^7.11.2",
     "autoprefixer": "^9.8.6",
+    "browser-update": "^3.3.21",
     "express": "^4.17.1",
     "intersection-observer": "^0.11.0",
     "postcss-discard-duplicates": "^4.0.2",
@@ -67,8 +69,7 @@
     ]
   },
   "browserslist": [
-    "cover 99.5% and not dead and supports css-grid and supports flexbox and supports css-sticky and not ie <= 11"
+    "cover 99.5% and not dead and supports css-grid and supports flexbox and supports css-sticky and not ie <= 11, unreleased versions"
   ],
-  "resolve": {
-  }
+  "resolve": {}
 }
